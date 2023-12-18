@@ -19,7 +19,7 @@ FROM node:18-alpine as main
 COPY --from=build /app /
 
 # Expose port 8004 so it can be mapped by Docker daemon.
-EXPOSE 8004
+EXPOSE 5004
 
 # Define the command to run your app using CMD which defines your runtime.
 CMD [ "npm", "start" ]

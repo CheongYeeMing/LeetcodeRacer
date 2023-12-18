@@ -242,7 +242,7 @@ const HistoryTable = () => {
                 },
               }}
             >
-              <div className="flex flex-wrap h-5 items-center text-small justify-center w-full h-full">
+              <div className="flex flex-wrap items-center text-small justify-center w-full h-full">
                 <div
                   className="w-full grid grid-cols-12 gap-0 "
                   id="cardContainer"

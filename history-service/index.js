@@ -60,7 +60,7 @@ mongoose
   .then(() => {
     console.log('Connected to MongoDB Atlas');
     app.listen(5006, () => {
-      console.log('History server is running on port 8006');
+      console.log('History server is running on port 5006');
     });
   })
   .catch((err) => {

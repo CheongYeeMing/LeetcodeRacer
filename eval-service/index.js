@@ -11,6 +11,9 @@ const allowedOrigins = [
   'http://localhost:5000',
   'http://localhost:5001',
   'http://localhost:5002',
+  'http://localhost:5003',
+  'http://localhost:5004',
+  'http://localhost:5005',
   'http://localhost:5006',
   // node ip
   'http://34.123.40.181:30800',
@@ -41,12 +44,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const apiKey = 'e7d334e146msh0b53aee19fe1157p10ef20jsn8aaf56e4b47f';
+const apiKey = 'cea18e29d6mshfc3c743d34181bdp19ebf1jsncea3803e0c3b';
 const baseUrl = 'https://judge0-ce.p.rapidapi.com';
 const openaiKey =
   process.env.NODE_ENV === 'production'
     ? process.env.OPENAPI_KEY
-    : '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';
+    : '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';
 
 console.log('open api key: ', openaiKey);
 
@@ -173,6 +176,13 @@ app.post('/evaluate', async (req, res) => {
 
     res.json({ result: chatGptMessageContent });
   } catch (error) {
+    console.error('Error message:', error.message);
+    console.error('Error stack:', error.stack);
+    if (error.response) {
+      console.error('Error response data:', error.response.data);
+      console.error('Error response status:', error.response.status);
+      console.error('Error response headers:', error.response.headers);
+    }
     res.status(500).json({ error: error.message });
   }
 });

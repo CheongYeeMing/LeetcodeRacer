@@ -1,7 +1,7 @@
 {
   "name": "matchmaking-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "You will need to run the rabbitMQ and kafka docker container locally.\r Run\r ```bash\r docker-compose up\r ```\r to start all the containers",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

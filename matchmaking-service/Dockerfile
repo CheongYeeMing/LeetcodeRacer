@@ -18,7 +18,7 @@ COPY --from=build /app /
 
 # Expose the required ports for RabbitMQ and Kafka.
 # Adjust the port numbers if needed.
-EXPOSE 8002
+EXPOSE 5002
 
 # Define the command to run your app and start RabbitMQ and Kafka containers using CMD.
 CMD ["npm", "start"]

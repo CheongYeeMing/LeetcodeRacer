@@ -2,7 +2,6 @@ const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
 const app = express();
-const port = 7000;
 const cheerio = require('cheerio');
 
 app.use(express.json());
@@ -178,6 +177,6 @@ app.post('/evaluate', async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`eval-service listening at http://localhost:${port}`);
+app.listen(5005, () => {
+  console.log(`eval-service listening at http://localhost:5005`);
 });

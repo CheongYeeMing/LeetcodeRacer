@@ -351,7 +351,7 @@ const CollaborationSession = () => {
       const url =
         process.env.NODE_ENV === 'production'
           ? '34.123.40.181:30300'
-          : 'localhost:7000';
+          : 'localhost:5005';
 
       console.log('eval url: ' + url);
 
@@ -383,7 +383,7 @@ const CollaborationSession = () => {
       const url =
         process.env.NODE_ENV === 'production'
           ? '34.123.40.181:30300'
-          : 'localhost:7000';
+          : 'localhost:5005';
 
       console.log('eval url: ' + url);
 

@@ -17,8 +17,8 @@ FROM node:18-alpine as main
 
 COPY --from=build /app /
 
-# Expose port 4000
-EXPOSE 4000
+# Expose port 5007
+EXPOSE 5007
 
 # Define the command to run your app using CMD which defines your runtime.
 CMD [ "npm", "start" ]

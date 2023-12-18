@@ -1,15 +1,15 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require("cors");
+const cors = require('cors');
 const app = express();
 const http = require('http');
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://localhost:8000',
-  'http://localhost:8001',
-  'http://localhost:8002',
-  'http://localhost:8006',
+  'http://localhost:5000',
+  'http://localhost:5001',
+  'http://localhost:5002',
+  'http://localhost:5006',
   // node ip
   'http://34.123.40.181:30800',
   'http://34.123.40.181:30700',
@@ -29,11 +29,12 @@ const corsOptions = {
   origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      const msg =
+        'The CORS policy for this site does not allow access from the specified Origin.';
       return callback(new Error(msg), false);
     }
     return callback(null, true);
-  }
+  },
 };
 
 app.use(cors(corsOptions));

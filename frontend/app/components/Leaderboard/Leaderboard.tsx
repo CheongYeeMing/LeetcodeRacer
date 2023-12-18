@@ -90,24 +90,25 @@ const Leaderboard = () => {
         </TableHeader>
         <TableBody
           emptyContent={
-          <div className='pb-2'>
-            <Skeleton className="rounded-lg  mt-4">
-              <div className="h-5 w-3/5 bg-default-200"></div>
-            </Skeleton>
-            <Skeleton className="rounded-lg  mt-4">
-              <div className="h-5 w-3/5 bg-default-200"></div>
-            </Skeleton>
-            <Skeleton className="rounded-lg  mt-4">
-              <div className="h-5 w-3/5 bg-default-200"></div>
-            </Skeleton>
-            <Skeleton className="rounded-lg  mt-4">
-              <div className="h-5 w-3/5 bg-default-200"></div>
-            </Skeleton>
-            <Skeleton className="rounded-lg  mt-4">
-              <div className="h-5 w-3/5 bg-default-200"></div>
-            </Skeleton>
-          </div>
-          }>
+            <div className="pb-2">
+              <Skeleton className="rounded-lg  mt-4">
+                <div className="h-5 w-3/5 bg-default-200"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg  mt-4">
+                <div className="h-5 w-3/5 bg-default-200"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg  mt-4">
+                <div className="h-5 w-3/5 bg-default-200"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg  mt-4">
+                <div className="h-5 w-3/5 bg-default-200"></div>
+              </Skeleton>
+              <Skeleton className="rounded-lg  mt-4">
+                <div className="h-5 w-3/5 bg-default-200"></div>
+              </Skeleton>
+            </div>
+          }
+        >
           {rows.map((row: any, index: number) => (
             <TableRow key={rows.userId}>
               <TableCell>
@@ -125,11 +126,14 @@ const Leaderboard = () => {
 
   const getLeaders = async () => {
     try {
-      // const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30500" : 'localhost:8006';
+      // const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30500" : 'localhost:5006';
 
-      const url = process.env.NODE_ENV === 'production' ? '34.123.40.181:30500' : 'localhost:8006';
-      
-      console.log("history url: ", url);
+      const url =
+        process.env.NODE_ENV === 'production'
+          ? '34.123.40.181:30500'
+          : 'localhost:5006';
+
+      console.log('history url: ', url);
 
       const res = await fetch(`http://${url}/history/getLeaders`, {
         method: 'GET',
@@ -157,11 +161,19 @@ const Leaderboard = () => {
         <Tab key="today" title="Today" className="flex flex-col w-full pr-12">
           {tableStructure(dailyLeaders, 'day')}
         </Tab>
-        <Tab key="week" title="This Week" className="flex flex-col w-full pr-12">
+        <Tab
+          key="week"
+          title="This Week"
+          className="flex flex-col w-full pr-12"
+        >
           {tableStructure(weeklyLeaders, 'week')}
         </Tab>
 
-        <Tab key="month" title="This Month" className="flex flex-col w-full pr-12">
+        <Tab
+          key="month"
+          title="This Month"
+          className="flex flex-col w-full pr-12"
+        >
           {tableStructure(monthlyLeaders, 'month')}
         </Tab>
       </Tabs>

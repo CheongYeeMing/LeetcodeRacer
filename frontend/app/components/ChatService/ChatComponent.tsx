@@ -27,17 +27,23 @@ const ChatComponent: React.FC<ChatComponentProps> = (props: any) => {
       const jwtToken = localStorage.getItem('token');
 
       try {
-        const chatServiceURL = process.env.NODE_ENV === "production" ? "34.123.40.181:30000" : "localhost:8003";
+        const chatServiceURL =
+          process.env.NODE_ENV === 'production'
+            ? '34.123.40.181:30000'
+            : 'localhost:5003';
 
-        console.log("chat url : " + chatServiceURL);
+        console.log('chat url : ' + chatServiceURL);
 
-        const response = await fetch(`http://${chatServiceURL}/firebase-config`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        });
+        const response = await fetch(
+          `http://${chatServiceURL}/firebase-config`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
 
         if (response.status === 200) {
           const data = await response.json();

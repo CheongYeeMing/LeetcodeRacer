@@ -62,7 +62,10 @@ const Matchmaking = () => {
       localStorage.setItem('searchQuestionType', searchQuestionType);
     }
 
-    const url = process.env.NODE_ENV !== 'production' ? 'localhost:8002' : "34.123.40.181:30600"
+    const url =
+      process.env.NODE_ENV !== 'production'
+        ? 'localhost:5002'
+        : '34.123.40.181:30600';
 
     const socket = new WebSocket(`ws://${url}`);
 
@@ -226,7 +229,6 @@ const Matchmaking = () => {
     }, 5000);
     console.log(sessionId);
   };
-
 
   return (
     <div className="mr-12 lg:flex-grow md:w-1/1.5 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">

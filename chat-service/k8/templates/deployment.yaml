@@ -17,7 +17,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           # image: imrajsingh/chat-service-image
           ports:
-            - containerPort: 8003
+            - containerPort: 5003
           env:
             - name: FIREBASE_API_KEY
               value: "{{ .Values.secrets.firebase_keys.firebaseApiKey }}"

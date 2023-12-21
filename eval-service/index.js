@@ -15,6 +15,7 @@ const allowedOrigins = [
   'http://localhost:5004',
   'http://localhost:5005',
   'http://localhost:5006',
+  'http://localhost:5007',
   // node ip
   'http://34.123.40.181:30800',
   'http://34.123.40.181:30700',
@@ -49,7 +50,7 @@ const baseUrl = 'https://judge0-ce.p.rapidapi.com';
 const openaiKey =
   process.env.NODE_ENV === 'production'
     ? process.env.OPENAPI_KEY
-    : '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';
+    : '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';
 
 console.log('open api key: ', openaiKey);
 
@@ -149,11 +150,7 @@ app.post('/evaluate', async (req, res) => {
     Here is the question description: ${extractedText}
     Here is the code the student wrote: ${code} in ${language}
     Here is the compilation result: ${compilationResult}
-    Repeat the question description and score the student's code out of 10 total marks based on
-    1) Correctness of code, does it satisfy the question requirement or is it failing some edge cases (5 marks allocated)
-    2) time complexity of algorithm used (3 marks allocated)
-    3) readability of code (2 marks allocated)
-    if the code does not answer the question at all please give it a score of 0 out of 10. Please output the score as Student's Score : (the score you have given the student)/10`,
+    Repeat the question description and score the student's code out of 10 total marks`,
         },
       ],
     };

@@ -4,6 +4,6 @@ secrets:
 
 service:
   type: NodePort
-  port: 8006
-  targetPort: 8006
+  port: 5006
+  targetPort: 5006
   nodePort: 30500

@@ -13,7 +13,11 @@ const allowedOrigins = [
   'http://localhost:5000',
   'http://localhost:5001',
   'http://localhost:5002',
+  'http://localhost:5003',
+  'http://localhost:5004',
+  'http://localhost:5005',
   'http://localhost:5006',
+  'http://localhost:5007',
 
   // Deployment ip below
   // node ip

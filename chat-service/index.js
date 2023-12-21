@@ -9,7 +9,11 @@ const allowedOrigins = [
   'http://localhost:5000',
   'http://localhost:5001',
   'http://localhost:5002',
+  'http://localhost:5003',
+  'http://localhost:5004',
+  'http://localhost:5005',
   'http://localhost:5006',
+  'http://localhost:5007',
   // node ip
   'http://34.123.40.181:30800',
   'http://34.123.40.181:30700',
@@ -45,7 +49,7 @@ const firebaseConfigRoute = require('./routes/firebaseConfig-route');
 app.use('/', firebaseConfigRoute);
 
 const server = http.createServer(app); // Create an HTTP server
-const port = process.env.PORT || 8003;
+const port = process.env.PORT || 5003;
 
 server.listen(port, () => {
   console.log(`web socket server is running on port ${port}`);

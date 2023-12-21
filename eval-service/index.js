@@ -3,6 +3,7 @@ const axios = require('axios');
 const cors = require('cors');
 const app = express();
 const cheerio = require('cheerio');
+require('dotenv').config();
 
 app.use(express.json());
 

@@ -47,7 +47,7 @@ const RegisterPage = () => {
 
     if (username) {
 
-      const url = process.env.NODE_ENV == 'production' ? "34.123.40.181:30800" : 'localhost:8000';
+      const url = process.env.NODE_ENV == 'production' ? "34.123.40.181:30800" : 'localhost:5000';
       
       console.log("registration url: " + url);
       console.log("ENV: " + process.env.NODE_ENV);

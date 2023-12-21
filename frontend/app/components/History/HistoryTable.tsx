@@ -60,17 +60,20 @@ const HistoryTable = () => {
   ];
 
   async function getHistories(userId: string): Promise<History[]> {
+    const historyUrl =
+      process.env.NODE_ENV === 'production'
+        ? '34.123.40.181:30500'
+        : 'localhost:5006';
 
-    const historyUrl = process.env.NODE_ENV === 'production' ? "34.123.40.181:30500" : 'localhost:8006';
+    console.log('history url: ' + historyUrl);
 
-    console.log("history url: " + historyUrl);
-
-
-    const res: Response = await fetch(`http://${historyUrl}/history?userId=${userId}`, {
-      method: 'GET',
-      headers: { token: localStorage.token },
-      cache: 'no-store',
-    }
+    const res: Response = await fetch(
+      `http://${historyUrl}/history?userId=${userId}`,
+      {
+        method: 'GET',
+        headers: { token: localStorage.token },
+        cache: 'no-store',
+      }
     );
     console.log(res);
     const histories: History[] = await res.json();
@@ -78,8 +81,10 @@ const HistoryTable = () => {
   }
 
   async function getTickets(): Promise<Question[][]> {
-
-    const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30700" : 'localhost:8001';
+    const url =
+      process.env.NODE_ENV === 'production'
+        ? '34.123.40.181:30700'
+        : 'localhost:5001';
 
     console.log('question url: ' + url);
 
@@ -91,7 +96,6 @@ const HistoryTable = () => {
     const questions: Question[][] = await res.json();
     return questions;
   }
-
 
   React.useEffect(() => {
     const fetchQuestions = async () => {
@@ -131,14 +135,14 @@ const HistoryTable = () => {
     return diffDays;
   };
 
-  const getQuestionName = (questionId: number) : string => {
+  const getQuestionName = (questionId: number): string => {
     const question = questions.find((q) => q.id == questionId);
     if (question) {
       return question.title;
     } else {
-      return "Unknown Question";
+      return 'Unknown Question';
     }
-  }
+  };
 
   const generateDaysSubtitle = (attemptedDate: string) => {
     const daysDifference = daysPast(attemptedDate);
@@ -182,7 +186,7 @@ const HistoryTable = () => {
                     className="capitalize flex m-2"
                     color={
                       difficultyColorMap[
-                      record.difficulty ? record.difficulty : 'Easy'
+                        record.difficulty ? record.difficulty : 'Easy'
                       ]
                     }
                     size="md"
@@ -192,7 +196,9 @@ const HistoryTable = () => {
                   </Chip>
                 </div>
               }
-              title={`${record.questionId}. ${getQuestionName(record.questionId)}`}
+              title={`${record.questionId}. ${getQuestionName(
+                record.questionId
+              )}`}
               subtitle={
                 <div className="col-span-2 grid grid-cols-2 gap-0">
                   <p>{parseDateString(record.attemptDate)}</p>
@@ -236,7 +242,7 @@ const HistoryTable = () => {
                 },
               }}
             >
-              <div className="flex flex-wrap h-5 items-center text-small justify-center w-full h-full">
+              <div className="flex flex-wrap items-center text-small justify-center w-full h-full">
                 <div
                   className="w-full grid grid-cols-12 gap-0 "
                   id="cardContainer"
@@ -249,7 +255,6 @@ const HistoryTable = () => {
                     <CardHeader className="flex">
                       <span className="text-xl text-default-700 font-bold">
                         Your Code
-                        
                       </span>
                       <span className="ml-auto justify-self-end">
                         <Tooltip
@@ -264,7 +269,10 @@ const HistoryTable = () => {
                       </span>
                     </CardHeader>
 
-                    <CardBody className="pt-0 flex w-full" style={{marginLeft: -6}}>
+                    <CardBody
+                      className="pt-0 flex w-full"
+                      style={{ marginLeft: -6 }}
+                    >
                       <AceEditor
                         mode={record.language}
                         theme="tomorrow_night"
@@ -289,24 +297,24 @@ const HistoryTable = () => {
                   >
                     <CardHeader className="flex gap-3">
                       {/* <div className="grid gap-0 w-full items-center"> */}
-                        <span className="text-xl text-default-700 font-bold">
-                          Feedback
-                        </span>
-                        <span className="ml-auto justify-self-end">
-                          <Chip
-                            key="score"
-                            variant="dot"
-                            radius="sm"
-                            color="success"
-                            className="capitalize"
-                          >
-                            <p className="font-bold">{record.score}/10</p>
-                          </Chip>
-                        </span>
+                      <span className="text-xl text-default-700 font-bold">
+                        Feedback
+                      </span>
+                      <span className="ml-auto justify-self-end">
+                        <Chip
+                          key="score"
+                          variant="dot"
+                          radius="sm"
+                          color="success"
+                          className="capitalize"
+                        >
+                          <p className="font-bold">{record.score}/10</p>
+                        </Chip>
+                      </span>
                       {/* </div> */}
                     </CardHeader>
                     {/* <Divider/> */}
-                    <CardBody className='pt-0 h-5 overflow-y-scroll'>
+                    <CardBody className="pt-0 h-5 overflow-y-scroll">
                       {processNewLine(record.feedback).map((line) => (
                         <p key={line} className="text-medium">
                           {line}

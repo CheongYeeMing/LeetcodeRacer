@@ -15,8 +15,8 @@ FROM node:18-alpine as main
 # Bundle the app's source code inside the Docker image.
 COPY --from=build /app /
 
-# Expose port 8001 so it can be mapped by Docker daemon.
-EXPOSE 8001
+# Expose port 5001 so it can be mapped by Docker daemon.
+EXPOSE 5001
 
 # Define the command to run your app using CMD which defines your runtime.
 CMD [ "npm", "start" ]

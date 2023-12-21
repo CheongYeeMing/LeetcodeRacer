@@ -16,7 +16,7 @@ spec:
         - name: history-service-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 8006
+            - containerPort: 5006
           env:
             - name: MONGO_URL
               value: "{{ .Values.secrets.mongo_url }}"

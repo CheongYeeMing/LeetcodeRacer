@@ -19,11 +19,11 @@ interface ChatRoomProps {
 const ChatRoom: React.FC<ChatRoomProps> = ({ docRef, userId }) => {
   const db = getFirestore();
   const messageSpanRef = useRef<HTMLElement | null>(null);
-  const messagesRef = collection(db, 'matched-tokens', docRef.id, 'messages');
+  const messagesRef = collection(db, 'chat', docRef.id, 'messages');
   const [formValue, setFormValue] = useState('');
 
   const messagesQuery = query(
-    collection(db, 'matched-tokens', docRef?.id, 'messages'),
+    collection(db, 'chat', docRef?.id, 'messages'),
     orderBy('createdAt')
   );
 

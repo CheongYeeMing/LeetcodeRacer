@@ -17,7 +17,7 @@ spec:
         image: imrajsingh/matchmaking-service-image
         # image: e0774189614/cs3219
         ports:
-        - containerPort: 8002
+        - containerPort: 5002
         env:
         - name: KAFKA_PRODUCER_USERNAME
           value: user1

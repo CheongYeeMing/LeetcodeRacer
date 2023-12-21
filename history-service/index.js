@@ -10,10 +10,14 @@ app.use(express.json());
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://localhost:8000',
-  'http://localhost:8001',
-  'http://localhost:8002',
-  'http://localhost:8006',
+  'http://localhost:5000',
+  'http://localhost:5001',
+  'http://localhost:5002',
+  'http://localhost:5003',
+  'http://localhost:5004',
+  'http://localhost:5005',
+  'http://localhost:5006',
+  'http://localhost:5007',
   // node ip
   'http://34.123.40.181:30800',
   'http://34.123.40.181:30700',
@@ -27,7 +31,7 @@ const allowedOrigins = [
   // frontend ip
   'http://34.68.28.7:3000',
 ];
-  
+
 app.use(
   cors({
     credentials: true,
@@ -53,14 +57,14 @@ const historyRoutes = require('./routes/history-routes');
 app.use('/history', historyRoutes);
 
 mongoose
-  .connect(
-    process.env.MONGO_URL,
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log('Connected to MongoDB Atlas');
-    app.listen(8006, () => {
-      console.log('History server is running on port 8006');
+    app.listen(5006, () => {
+      console.log('History server is running on port 5006');
     });
   })
   .catch((err) => {

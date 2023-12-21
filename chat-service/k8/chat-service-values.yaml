@@ -11,6 +11,6 @@ secrets:
 
 service:
   type: NodePort
-  port: 8003
-  targetPort: 8003
+  port: 5003
+  targetPort: 5003
   nodePort: 30000

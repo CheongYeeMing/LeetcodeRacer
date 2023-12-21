@@ -16,7 +16,7 @@ spec:
         - name: user-service-container
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
-            - containerPort: 8000
+            - containerPort: 5000
           env:
             - name: POSTGRES_USER
               value: "{{ .Values.secrets.postgres_user }}"

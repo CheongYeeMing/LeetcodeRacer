@@ -1,10 +1,9 @@
 import { doc, getFirestore, serverTimestamp, setDoc } from 'firebase/firestore';
 import { initializeApp } from 'firebase/app';
+import { getAuth, signInAnonymously } from 'firebase/auth';
 import React, { useEffect, useState } from 'react';
 import ChatRoom from './ChatRoom';
 import Loading from './Loading';
-import { Textarea } from '@nextui-org/react';
-import { url } from 'inspector';
 
 /*
     Call this component to display chat component on screen
@@ -27,30 +26,42 @@ const ChatComponent: React.FC<ChatComponentProps> = (props: any) => {
       const jwtToken = localStorage.getItem('token');
 
       try {
-        const chatServiceURL = process.env.NODE_ENV === "production" ? "34.123.40.181:30000" : "localhost:8003";
+        const chatServiceURL =
+          process.env.NODE_ENV === 'production'
+            ? '34.123.40.181:30000'
+            : 'localhost:5003';
 
-        console.log("chat url : " + chatServiceURL);
+        console.log('chat url : ' + chatServiceURL);
 
-        const response = await fetch(`http://${chatServiceURL}/firebase-config`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwtToken}`,
-          },
-        });
+        const response = await fetch(
+          `http://${chatServiceURL}/firebase-config`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${jwtToken}`,
+            },
+          }
+        );
+
+        console.log('chat response: ', response);
+        console.log('chat response status: ', response.status);
 
         if (response.status === 200) {
           const data = await response.json();
-          initializeApp(data.firebaseConfig);
+          const app = initializeApp(data.firebaseConfig);
+
+          const auth = getAuth(app);
+          await signInAnonymously(auth);
 
           const db = getFirestore();
-          await setDoc(doc(db, 'matched-tokens', matchToken), {
+          await setDoc(doc(db, 'chat', matchToken), {
             matchToken: matchToken,
             createdAt: serverTimestamp(),
           })
             .then(() => {
               console.log('Document successfully written!');
-              setDocRef(doc(db, 'matched-tokens', matchToken));
+              setDocRef(doc(db, 'chat', matchToken));
             })
             .catch((error) => {
               console.error('Error adding document: ', error);

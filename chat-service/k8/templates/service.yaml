@@ -5,8 +5,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8003
-      targetPort: 8003
+    - port: 5003
+      targetPort: 5003
       nodePort: 30000
   selector:
     app: chat-service

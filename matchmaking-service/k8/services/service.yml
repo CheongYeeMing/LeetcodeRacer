@@ -5,8 +5,8 @@ metadata:
 spec:
   type: NodePort
   ports:
-    - port: 8002
-      targetPort: 8002
+    - port: 5002
+      targetPort: 5002
       nodePort: 30600
   selector:
     app: matchmaking-service

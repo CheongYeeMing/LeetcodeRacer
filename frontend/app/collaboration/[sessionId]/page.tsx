@@ -53,7 +53,6 @@ const CollaborationSession = () => {
   const [isRedirect2nd, setIsRedirect2nd] = useState(false);
   const [userConfirmedRedirect, setUserConfirmedRedirect] = useState(false);
 
-
   const [progress, setProgress] = useState(100);
   const [redirectTime, setRedirectTime] = useState(5000);
 
@@ -107,10 +106,13 @@ const CollaborationSession = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30100" : 'localhost:8004';
-    
-    console.log("collab url: " + url);
-    
+    const url =
+      process.env.NODE_ENV === 'production'
+        ? '34.123.40.181:30100'
+        : 'localhost:5004';
+
+    console.log('collab url: ' + url);
+
     const websocket = new WebSocket(`ws://${url}/${sessionId}`);
 
     const waitForQuestion = () => {
@@ -120,7 +122,7 @@ const CollaborationSession = () => {
           resolve(JSON.parse(storedQuestion));
           return;
         }
-        
+
         const handler = (message: any) => {
           const data = JSON.parse(message.data);
           if (data.hasOwnProperty('question')) {
@@ -187,7 +189,6 @@ const CollaborationSession = () => {
         setUserConfirmedRedirect(false);
       }
 
-
       if (data.type === 'END_SESSION') {
         setIsEnded(true);
         handleEndSession();
@@ -227,8 +228,7 @@ const CollaborationSession = () => {
     };
 
     sendLanguageToServer(language);
-
-  }, [language]); 
+  }, [language]);
 
   const router = useRouter();
 
@@ -263,7 +263,6 @@ const CollaborationSession = () => {
     onConfirmRedirectPopupOpen();
   };
 
-
   const handleConfirmRedirect2nd = () => {
     onConfirmRedirectPopupOpen();
     onWaiting2ndOpen();
@@ -276,7 +275,7 @@ const CollaborationSession = () => {
       ws.send(message);
     }
     handleEvaluateAndCompile();
-  }
+  };
 
   const handleCancelWait2nd = () => {
     if (ws && ws.readyState === WebSocket.OPEN) {
@@ -287,7 +286,6 @@ const CollaborationSession = () => {
       ws.send(message);
     }
   };
-
 
   useEffect(() => {
     if (isEndingSessionPopupOpen) {
@@ -337,11 +335,10 @@ const CollaborationSession = () => {
     }
   };
 
-
   const handleCompileAndSwitchTabs = async () => {
     setSelectedTab('Executed Code');
-    await handleCompile()
-  }
+    await handleCompile();
+  };
 
   const handleCompile = async () => {
     setIsExecuteButtonDisabled(true);
@@ -349,11 +346,14 @@ const CollaborationSession = () => {
     try {
       const selectedLanguageId = languageIds[language];
       const editorValue = writeEditorValue;
-      console.log("Editor value:", editorValue);
+      console.log('Editor value:', editorValue);
 
-      const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30300" : 'localhost:7000'; 
-      
-      console.log("eval url: " + url);
+      const url =
+        process.env.NODE_ENV === 'production'
+          ? '34.123.40.181:30300'
+          : 'localhost:5005';
+
+      console.log('eval url: ' + url);
 
       const response = await axios.post(`http://${url}/compile`, {
         sourceCode: editorValue,
@@ -380,9 +380,12 @@ const CollaborationSession = () => {
       const editorValue = writeEditorValue;
       const questionData = randomQuestion;
 
-      const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30300" : 'localhost:7000'; 
+      const url =
+        process.env.NODE_ENV === 'production'
+          ? '34.123.40.181:30300'
+          : 'localhost:5005';
 
-      console.log("eval url: " + url);
+      console.log('eval url: ' + url);
 
       if (questionData) {
         const response = await axios.post(
@@ -411,14 +414,14 @@ const CollaborationSession = () => {
   };
 
   const handleEvaluateAndCompile = async () => {
-    setSelectedTab('Question')
+    setSelectedTab('Question');
     await handleCompile(); // First, compile the code
     await handleEvaluate(); // Then, evaluate the code
 
     const score = parseScoreFromEvaluationResult(
       localStorage.getItem(`evaluationResult_${userId}`) ?? ''
     );
-  
+
     const outcome = 0;
     const sessionIdString = Array.isArray(sessionId) ? sessionId[0] : sessionId;
     const feedback = localStorage.getItem(`evaluationResult_${userId}`) || '';
@@ -437,7 +440,6 @@ const CollaborationSession = () => {
     console.log('history data :', historyData);
     sendHistoryData(historyData);
   };
-
 
   interface HistoryData {
     userId: string;
@@ -471,10 +473,12 @@ const CollaborationSession = () => {
 
   async function sendHistoryData(data: HistoryData): Promise<History> {
     try {
+      const url =
+        process.env.NODE_ENV === 'production'
+          ? '34.123.40.181:30500'
+          : 'localhost:5006';
 
-      const url = process.env.NODE_ENV === 'production' ? "34.123.40.181:30500" : 'localhost:8006'; 
-
-      console.log("history url: " + url);
+      console.log('history url: ' + url);
 
       const response = await fetch(`http://${url}/history`, {
         method: 'POST',
@@ -567,9 +571,7 @@ const CollaborationSession = () => {
                 <Chip
                   className="capitalize ml-2 mb-1"
                   color={
-                    difficultyColorMap[
-                      randomQuestion?.difficulty as string
-                    ]
+                    difficultyColorMap[randomQuestion?.difficulty as string]
                   }
                   size="sm"
                   variant="flat"
@@ -644,7 +646,7 @@ const CollaborationSession = () => {
               items={tabs}
               variant="underlined"
               selectedKey={'Results'}
-            // @ts-ignore
+              // @ts-ignore
             >
               <Tab key="Results" title="Results">
                 <Card>
@@ -664,7 +666,6 @@ const CollaborationSession = () => {
                   </CardBody>
                 </Card>
               </Tab>
-
             </Tabs>
           </div>
           <div className="h-1/2">
@@ -673,7 +674,7 @@ const CollaborationSession = () => {
               items={tabs}
               variant="underlined"
               selectedKey={'Chat'}
-            // @ts-ignore
+              // @ts-ignore
             >
               <Tab key="Chat" title="Chat">
                 <Card>
@@ -714,9 +715,7 @@ const CollaborationSession = () => {
                 <Chip
                   className="capitalize ml-2 mb-1"
                   color={
-                    difficultyColorMap[
-                      randomQuestion?.difficulty as string
-                    ]
+                    difficultyColorMap[randomQuestion?.difficulty as string]
                   }
                   size="sm"
                   variant="flat"
@@ -743,12 +742,10 @@ const CollaborationSession = () => {
                     <span className="loading loading-bars loading-xs"></span>
                     <p>Compiling....</p>
                   </div>
+                ) : compileResult ? (
+                  compileResult
                 ) : (
-                  compileResult ? (
-                    compileResult
-                  ) : (
-                    'Your Code has not been evaluated.'
-                  )
+                  'Your Code has not been evaluated.'
                 )}
               </CardBody>
             </Card>
@@ -763,8 +760,9 @@ const CollaborationSession = () => {
           </div>
           <div className="col-span-6 flex justify-between h-full w-full">
             <div
-              className={`${isTimeUp ? 'items-start' : 'w-full flex-1 ml-2 mt-2 h-full '
-                }`}
+              className={`${
+                isTimeUp ? 'items-start' : 'w-full flex-1 ml-2 mt-2 h-full '
+              }`}
             >
               {allowed && <Timer duration={timeLeft} onTimeUp={handleTimeUp} />}
               <RightPanel {...rightPanelProps} />
@@ -778,12 +776,12 @@ const CollaborationSession = () => {
               setIsDisconnectPopupOpen(false);
             }}
           />
-        <RedirectPopup
-          isOpen={isEndingSessionPopupOpen}
-          message={
-            'You are being redirected to the dashboard.. it may take a few seconds~'
-          }
-        />
+          <RedirectPopup
+            isOpen={isEndingSessionPopupOpen}
+            message={
+              'You are being redirected to the dashboard.. it may take a few seconds~'
+            }
+          />
         </div>
         {/* <CompileEvaluation {...CompileEvaluationProps} /> */}
         <div className="pt-16">

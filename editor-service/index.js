@@ -8,10 +8,14 @@ const server = http.createServer(app);
 
 const allowedOrigins = [
   'http://localhost:3000',
-  'http://localhost:8000',
-  'http://localhost:8001',
-  'http://localhost:8002',
-  'http://localhost:8006',
+  'http://localhost:5000',
+  'http://localhost:5001',
+  'http://localhost:5002',
+  'http://localhost:5003',
+  'http://localhost:5004',
+  'http://localhost:5005',
+  'http://localhost:5006',
+  'http://localhost:5007',
   // node ip
   'http://34.123.40.181:30800',
   'http://34.123.40.181:30700',
@@ -27,21 +31,22 @@ const allowedOrigins = [
 ];
 
 const corsOptions = {
-    credentials: true,
-    origin: function (origin, callback) {
+  credentials: true,
+  origin: function (origin, callback) {
     if (!origin) return callback(null, true);
     if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-        return callback(new Error(msg), false);
+      const msg =
+        'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
     }
     return callback(null, true);
-    }
+  },
 };
 
 app.use(cors(corsOptions));
 
 const io = socketIo(server, {
-    cors: corsOptions
+  cors: corsOptions,
 });
 
 const sessionSockets = new Map();
@@ -62,28 +67,27 @@ io.on('connection', (socket) => {
   }
 
   socket.on('editorChange', (data) => {
-  
     if (sessionSockets.has(data.sessionId)) {
       const session = sessionSockets.get(data.sessionId);
-      session.readOnlySockets.forEach(sessionSocket => {
+      session.readOnlySockets.forEach((sessionSocket) => {
         if (sessionSocket !== socket) {
           sessionSocket.emit('editorUpdate', data);
         }
       });
     }
   });
-  
+
   socket.on('editorChangeTimeUp', (data) => {
     if (sessionSockets.has(data.sessionId)) {
       const session = sessionSockets.get(data.sessionId);
       if (!data.isReadOnly) {
-        session.readOnlySockets.forEach(sessionSocket => {
+        session.readOnlySockets.forEach((sessionSocket) => {
           if (sessionSocket !== socket) {
             sessionSocket.emit('editorUpdate', data);
           }
         });
       } else {
-        session.writableSockets.forEach(sessionSocket => {
+        session.writableSockets.forEach((sessionSocket) => {
           if (sessionSocket !== socket) {
             sessionSocket.emit('editorUpdate', data);
           }
@@ -109,13 +113,16 @@ io.on('connection', (socket) => {
         }
       }
 
-      if (session.readOnlySockets.length === 0 && session.writableSockets.length === 0) {
+      if (
+        session.readOnlySockets.length === 0 &&
+        session.writableSockets.length === 0
+      ) {
         sessionSockets.delete(sessionId);
       }
     }
   });
 });
 
-server.listen(4000, () => {
-  console.log('Server is running on port 4000');
+server.listen(5007, () => {
+  console.log('Server is running on port 5007');
 });

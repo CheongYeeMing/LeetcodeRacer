@@ -1,7 +1,7 @@
 {
   "name": "history-service",
   "version": "1.0.0",
-  "description": "",
+  "description": "add the following to your .env file",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

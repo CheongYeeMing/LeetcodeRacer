@@ -15,7 +15,7 @@ app.use(express.json());
 const server = http.createServer(app);
 const wss = wsController.createWebSocket(server);
 
-const port = 8002;
+const port = 5002;
 server.listen(port, () => {
   console.log(`matchmaking server is running on port ${port}`);
 });

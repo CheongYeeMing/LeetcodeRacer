@@ -45,12 +45,12 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-const apiKey = 'cea18e29d6mshfc3c743d34181bdp19ebf1jsncea3803e0c3b';
-const baseUrl = 'https://judge0-ce.p.rapidapi.com';
+const apiKey = process.env.JUDGE0_API_KEY;
+const baseUrl = process.env.JUDGE0_BASE_URL;
 const openaiKey =
   process.env.NODE_ENV === 'production'
     ? process.env.OPENAPI_KEY
-    : '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';
+    : process.env.OPEN_AI_API_KEY;
 
 console.log('open api key: ', openaiKey);
 
